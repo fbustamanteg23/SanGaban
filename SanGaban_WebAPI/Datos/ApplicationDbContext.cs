@@ -3,18 +3,21 @@ using SanGaban_WebAPI.Modelos;
 
 namespace SanGaban_WebAPI.Datos
 {
-    public class ApplicationDbContext:DbContext
+    public class ApplicationDbContext : DbContext
     {
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { 
-       
-        
-        } 
-            
-  
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+
+
+        }
+
+
         public DbSet<Rol> Rol { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
-
+        public DbSet<Ubicacion> Ubicacion { get; set; }
+        public DbSet<TipoRegistro> TipoRegistro { get; set; }
+        public DbSet<Equipos> Equipos { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
