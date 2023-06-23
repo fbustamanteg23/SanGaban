@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\SanGaban_WebAPI.props" />
+</Project>
