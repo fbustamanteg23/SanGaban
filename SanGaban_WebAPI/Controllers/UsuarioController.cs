@@ -11,12 +11,12 @@ namespace SanGaban_WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RolController : ControllerBase
+    public class UsuarioController : ControllerBase
     {
         private readonly ILogger<RolController> _logger;
         private readonly ApplicationDbContext _db;
 
-        public RolController(ILogger<RolController> logger, ApplicationDbContext db)
+        public UsuarioController(ILogger<RolController> logger, ApplicationDbContext db)
         {
             _logger = logger;
             _db = db;
@@ -98,22 +98,23 @@ namespace SanGaban_WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult DeleteRol(int id)
         {
-            if (id==0) { return BadRequest(); }
-            var rol=_db.Rol.FirstOrDefault(v=>v.IdRol==id);
+            if (id == 0) { return BadRequest(); }
+            var rol = _db.Rol.FirstOrDefault(v => v.IdRol == id);
             if (rol == null) { return NotFound(); }
             _db.Rol.Remove(rol);
             _db.SaveChanges();
             return NoContent();
-    
+
         }
         //Actualizar registros en la tabla Rol
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult UpdateRol(int id, [FromBody] RolDto rolDto) {
+        public IActionResult UpdateRol(int id, [FromBody] RolDto rolDto)
+        {
             if (rolDto == null || id != rolDto.IdRol)
             {
-                return BadRequest();    
+                return BadRequest();
             }
 
             Rol modelo = new()
@@ -126,8 +127,8 @@ namespace SanGaban_WebAPI.Controllers
             _db.SaveChanges();
             return NoContent();
         }
-       
-        
+
+
         //Actualizar registros en la tabla Rol-patch
         [HttpPatch("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -138,7 +139,7 @@ namespace SanGaban_WebAPI.Controllers
             {
                 return BadRequest();
             }
-            var rol=_db.Rol.FirstOrDefault(v=>v.IdRol==id);
+            var rol = _db.Rol.FirstOrDefault(v => v.IdRol == id);
 
             RolDto rolDto = new()
             {
@@ -147,9 +148,9 @@ namespace SanGaban_WebAPI.Controllers
                 fechaRegistro = rol.fechaRegistro
             };
 
-            if(rol==null) return BadRequest();
+            if (rol == null) return BadRequest();
             patchDto.ApplyTo(rolDto, ModelState);
-            if(!ModelState.IsValid) { return BadRequest(ModelState); }
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
             Rol modelo = new()
             {
                 IdRol = rolDto.IdRol,
@@ -160,6 +161,5 @@ namespace SanGaban_WebAPI.Controllers
             _db.SaveChanges();
             return NoContent();
         }
-
     }
 }

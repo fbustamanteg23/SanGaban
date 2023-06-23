@@ -8,5 +8,6 @@ namespace SanGaban_WebAPI.Modelos.Dto
         [Required]
         [MaxLength(200)]
         public String Nombre { get; set; }
+        public DateTime fechaRegistro { get; set; }
     }
 }

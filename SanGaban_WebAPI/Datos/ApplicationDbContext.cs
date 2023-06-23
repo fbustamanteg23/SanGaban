@@ -13,6 +13,7 @@ namespace SanGaban_WebAPI.Datos
             
   
         public DbSet<Rol> Rol { get; set; }
+     
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
