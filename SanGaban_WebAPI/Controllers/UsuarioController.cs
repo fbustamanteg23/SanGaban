@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Win32;
 using SanGaban_WebAPI.Datos;
 using SanGaban_WebAPI.Modelos;
 using SanGaban_WebAPI.Modelos.Dto;
@@ -23,15 +24,15 @@ namespace SanGaban_WebAPI.Controllers
         }
 
 
-        //Listar Todos Los Roles
+        //Listar Todos Los Usuarios
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<RolDto>> GetRols()
+        public ActionResult<IEnumerable<UsuarioDto>> GetUsuarios()
         {
 
             {
-                _logger.LogInformation("Listar los Roles");
-                return Ok(_db.Rol.ToList());
+                _logger.LogInformation("Listar los Usuarios");
+                return Ok(_db.Usuario.ToList());
 
 
             };
@@ -39,91 +40,106 @@ namespace SanGaban_WebAPI.Controllers
 
 
         //Listar Todos Los Roles pero bajo un id
-        [HttpGet("id:int", Name = "GetRol")]
+        [HttpGet("id:int", Name = "GetUsuario")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<RolDto>> GetRols(int id)
+        public ActionResult<IEnumerable<UsuarioDto>> GetUsuarios(int id)
         {
             if (id == 0)
             {
-                _logger.LogError("Error al traer Rol con Id " + id);
+                _logger.LogError("Error al traer Usuarios con Id " + id);
                 return BadRequest();
             }
 
-            var rol = _db.Rol.FirstOrDefault(v => v.IdRol == id);
-            if (rol == null)
+            var usuario = _db.Usuario.FirstOrDefault(v => v.IdUsuario == id);
+            if (usuario == null)
             {
                 return NotFound();
             }
-            return Ok(rol);
+            return Ok(usuario);
 
         }
 
 
-        //Insertar en la tabla Rol
+        //Insertar en la tabla Usuario
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<RolDto> CrearRol([FromBody] RolDto rolDto)
+        public ActionResult<UsuarioDto> CrearUsuario([FromBody] UsuarioDto usuarioDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            if (rolDto == null)
+            if (usuarioDto == null)
             {
-                return BadRequest(rolDto);
+                return BadRequest(usuarioDto);
             }
-            if (rolDto.IdRol > 0)
+            if (usuarioDto.IdUsuario > 0)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
-            Rol modelo = new()
+            Usuario modelo = new()
             {
-                IdRol = rolDto.IdRol,
-                Nombre = rolDto.Nombre,
-                fechaRegistro = rolDto.fechaRegistro
+                IdUsuario = usuarioDto.IdUsuario,
+                registro=usuarioDto.registro,
+                nombreCompleto=usuarioDto.nombreCompleto,
+                apellido_paterno= usuarioDto.apellido_paterno,
+                apellido_materno=usuarioDto.apellido_materno,
+                correo= usuarioDto.correo,
+                IdRol = usuarioDto.IdRol,
+                clave= usuarioDto.clave,
+                esActivo= usuarioDto.esActivo,
+                fechaRegistro= usuarioDto.fechaRegistro
+
             };
-            _db.Rol.Add(modelo);
+            _db.Usuario.Add(modelo);
             _db.SaveChanges();
-            return CreatedAtRoute("GetRol", new { id = rolDto.IdRol }, rolDto);
+            return CreatedAtRoute("GetUsuario", new { id = usuarioDto.IdUsuario }, usuarioDto);
         }
 
-        //eliminar registros en la tabla Rol
+        //eliminar registros en la tabla Usuario
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult DeleteRol(int id)
+        public IActionResult DeleteUsuario(int id)
         {
             if (id == 0) { return BadRequest(); }
-            var rol = _db.Rol.FirstOrDefault(v => v.IdRol == id);
-            if (rol == null) { return NotFound(); }
-            _db.Rol.Remove(rol);
+            var usuario = _db.Usuario.FirstOrDefault(v => v.IdUsuario == id);
+            if (usuario == null) { return NotFound(); }
+            _db.Usuario.Remove(usuario);
             _db.SaveChanges();
             return NoContent();
 
         }
-        //Actualizar registros en la tabla Rol
+        //Actualizar registros en la tabla Usuario
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult UpdateRol(int id, [FromBody] RolDto rolDto)
+        public IActionResult UpdateUsuario(int id, [FromBody] UsuarioDto usuarioDto)
         {
-            if (rolDto == null || id != rolDto.IdRol)
+            if (usuarioDto == null || id != usuarioDto.IdUsuario)
             {
                 return BadRequest();
             }
 
-            Rol modelo = new()
+            Usuario modelo = new()
             {
-                IdRol = rolDto.IdRol,
-                Nombre = rolDto.Nombre,
-                fechaRegistro = rolDto.fechaRegistro
+                IdUsuario = usuarioDto.IdUsuario,
+                registro = usuarioDto.registro,
+                nombreCompleto = usuarioDto.nombreCompleto,
+                apellido_paterno = usuarioDto.apellido_paterno,
+                apellido_materno = usuarioDto.apellido_materno,
+                correo = usuarioDto.correo,
+                IdRol = usuarioDto.IdRol,
+                clave = usuarioDto.clave,
+                esActivo = usuarioDto.esActivo,
+                fechaRegistro = usuarioDto.fechaRegistro
             };
-            _db.Rol.Update(modelo);
+            _db.Usuario.Update(modelo);
             _db.SaveChanges();
             return NoContent();
         }
@@ -133,31 +149,47 @@ namespace SanGaban_WebAPI.Controllers
         [HttpPatch("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult UpdatePartialRol(int id, JsonPatchDocument<RolDto> patchDto)
+        public IActionResult UpdatePartialUsuario(int id, JsonPatchDocument<UsuarioDto> patchDto)
         {
             if (patchDto == null || id == 0)
             {
                 return BadRequest();
             }
-            var rol = _db.Rol.FirstOrDefault(v => v.IdRol == id);
+            var usuario = _db.Usuario.FirstOrDefault(v => v.IdUsuario == id);
 
-            RolDto rolDto = new()
+
+            UsuarioDto usuarioDto = new()
             {
-                IdRol = rol.IdRol,
-                Nombre = rol.Nombre,
-                fechaRegistro = rol.fechaRegistro
+                IdUsuario = usuario.IdUsuario,
+                registro = usuario.registro,
+                nombreCompleto = usuario.nombreCompleto,
+                apellido_paterno = usuario.apellido_paterno,
+                apellido_materno = usuario.apellido_materno,
+                correo = usuario.correo,
+                IdRol = usuario.IdRol,
+                clave = usuario.clave,
+                esActivo = usuario.esActivo,
+                fechaRegistro = usuario.fechaRegistro
+
             };
 
-            if (rol == null) return BadRequest();
-            patchDto.ApplyTo(rolDto, ModelState);
+            if (usuario == null) return BadRequest();
+            patchDto.ApplyTo(usuarioDto, ModelState);
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
-            Rol modelo = new()
+            Usuario modelo = new()
             {
-                IdRol = rolDto.IdRol,
-                Nombre = rolDto.Nombre,
-                fechaRegistro = rolDto.fechaRegistro
+                IdUsuario = usuarioDto.IdUsuario,
+                registro = usuarioDto.registro,
+                nombreCompleto = usuarioDto.nombreCompleto,
+                apellido_paterno = usuarioDto.apellido_paterno,
+                apellido_materno = usuarioDto.apellido_materno,
+                correo = usuarioDto.correo,
+                IdRol = usuarioDto.IdRol,
+                clave = usuarioDto.clave,
+                esActivo = usuarioDto.esActivo,
+                fechaRegistro = usuarioDto.fechaRegistro
             };
-            _db.Rol.Update(modelo);
+            _db.Usuario.Update(modelo);
             _db.SaveChanges();
             return NoContent();
         }
