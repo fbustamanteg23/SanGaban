@@ -141,31 +141,39 @@ namespace SanGaban_WebAPI.Controllers
         [HttpPatch("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult UpdatePartialEquipos(int id, JsonPatchDocument<RolDto> patchDto)
+        public IActionResult UpdatePartialEquipos(int id, JsonPatchDocument<EquiposDto> patchDto)
         {
             if (patchDto == null || id == 0)
             {
                 return BadRequest();
             }
-            var rol = _db.Rol.FirstOrDefault(v => v.IdRol == id);
+            var equipos = _db.Equipos.FirstOrDefault(v => v.ID_EQUIPO == id);
 
-            RolDto rolDto = new()
+            EquiposDto equiposDto = new()
             {
-                IdRol = rol.IdRol,
-                Nombre = rol.Nombre,
-                fechaRegistro = rol.fechaRegistro
+
+                ID_EQUIPO = equipos.ID_EQUIPO,
+                ID_UBICACION = equipos.ID_UBICACION,
+                EQUIPO = equipos.EQUIPO,
+                DESCRIPCION = equipos.DESCRIPCION,
+                ELIMINACION = equipos.ELIMINACION
+ 
             };
 
-            if (rol == null) return BadRequest();
-            patchDto.ApplyTo(rolDto, ModelState);
+            if (equipos == null) return BadRequest();
+            patchDto.ApplyTo(equiposDto, ModelState);
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
-            Rol modelo = new()
+            Equipos modelo = new()
             {
-                IdRol = rolDto.IdRol,
-                Nombre = rolDto.Nombre,
-                fechaRegistro = rolDto.fechaRegistro
+
+                ID_EQUIPO = equiposDto.ID_EQUIPO,
+                ID_UBICACION = equiposDto.ID_UBICACION,
+                EQUIPO = equiposDto.EQUIPO,
+                DESCRIPCION = equiposDto.DESCRIPCION,
+                ELIMINACION = equiposDto.ELIMINACION
+               
             };
-            _db.Rol.Update(modelo);
+            _db.Equipos.Update(modelo);
             _db.SaveChanges();
             return NoContent();
         }

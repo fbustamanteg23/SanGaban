@@ -19,6 +19,15 @@ namespace SanGaban_WebAPI.Datos
         public DbSet<TipoRegistro> TipoRegistro { get; set; }
         public DbSet<Equipos> Equipos { get; set; }
 
+        public DbSet<Login> Login { get; set; }
+        public DbSet<LoginResultadoDto> LoginResultadoDto { get; set; }
+        public DbSet<ListarUbicacionResultadoDto> ListarUbicacionResultadoDto { get; set; }
+        
+        public DbSet<Ubicacion_x_EquipoDto> Ubicacion_x_EquipoDto { get; set; }
+
+        public DbSet<ListarUbicacion_x_TipoRegistroResultadoDto> ListarUbicacion_x_TipoRegistroResultadoDto { get; set; }
+
+        //CREA REGISTROS EN LA TABLA
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
         //    modelBuilder.Entity<Rol>().HasData(
