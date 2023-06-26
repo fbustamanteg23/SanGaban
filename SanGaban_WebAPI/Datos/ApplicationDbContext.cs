@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SanGaban_WebAPI.Modelos;
+using SanGaban_WebAPI.Modelos.Dto;
 
 namespace SanGaban_WebAPI.Datos
 {
@@ -26,6 +27,12 @@ namespace SanGaban_WebAPI.Datos
         public DbSet<Ubicacion_x_EquipoDto> Ubicacion_x_EquipoDto { get; set; }
 
         public DbSet<ListarUbicacion_x_TipoRegistroResultadoDto> ListarUbicacion_x_TipoRegistroResultadoDto { get; set; }
+
+        public DbSet<ExportarBitacoraDto> ExportarBitacoraDto { get; set; }
+
+
+        public DbSet<AuditoriaDto> AuditoriaDto { get; set; }
+        public DbSet<BitacoraDto> BitacoraDto { get; set; }
 
         //CREA REGISTROS EN LA TABLA
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
