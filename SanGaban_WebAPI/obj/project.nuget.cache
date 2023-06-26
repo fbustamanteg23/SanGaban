@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TpkZuvqvRSGAlxrGbR1TKdXNiZzt3cnYsUR7OkPzbWZb4240O/eWoSLBFCxQ3NvLOCkwCP3QKYQSfo+tu4I+2A==",
+  "dgSpecHash": "q8j8AJgmmYOHd/JAFDq+qqiaWrgb/Kk1zLtw21vNAeYysEx1ljx6jCqkfGdXZNUscEZLPPP7OFuuQGtlgJHRZw==",
   "success": true,
-  "projectFilePath": "D:\\Proyecto_SanGaban_NetCore\\SanGaban_WebAPI\\SanGaban_WebAPI\\SanGaban_WebAPI.csproj",
+  "projectFilePath": "D:\\Proyecto_SanGaban_NetCore\\SanGaban_WebAPI\\SanGaban_WebAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrador\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Administrador\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

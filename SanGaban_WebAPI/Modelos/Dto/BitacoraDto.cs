@@ -18,7 +18,15 @@ namespace SanGaban_WebAPI.Modelos.Dto
         public String USUARIO_MODIFICACION { get; set; }
         public String DESCRIPCION { get; set; }
         public String? CAUSA_DESCONEXION { get; set; } 
-        public String? CAUSA_ELIMINACION { get; set; } 
+        public String? CAUSA_ELIMINACION { get; set; }
+
+        public int ID_USUARIO_REGISTRO { get; set; }
+
+        public int ELIMINACION { get; set; }
+
+    
+        public int EVENTO_ACTIVO { get; set; }
+           
 
     }
 }

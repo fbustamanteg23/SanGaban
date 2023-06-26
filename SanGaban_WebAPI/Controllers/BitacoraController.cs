@@ -114,7 +114,7 @@ namespace SanGaban_WebAPI.Controllers
 
             try
             {
-                var loginList = await _db.AuditoriaDto.FromSqlRaw(StoredProc).ToListAsync();
+                var loginList = await _db.BitacoraDto.FromSqlRaw(StoredProc).ToListAsync();
                 return Ok(loginList);
             }
             catch
@@ -125,12 +125,14 @@ namespace SanGaban_WebAPI.Controllers
 
 
         }
-        [HttpPost("{FECHA_HORA_INICIO},{ID_TIPO_REGISTRO},{DISPONIBILIDAD},{DESCRIPCION},{ID_EQUIPOS},{ID_USUARIO}" +
-           ",{ID_UBICACION},{CAUSA_DESCONEXION},{ID_USUARIO_REGISTRO},{EVENTO_ACTIVO}")]
+
+        [HttpPost("{FECHA_HORA_INICIO},{FECHA_HORA_FIN},{ID_TIPO_REGISTRO},{DISPONIBILIDAD},{DESCRIPCION},{ID_EQUIPOS},{ID_USUARIO}" +
+           ",{ID_UBICACION},{CAUSA_DESCONEXION},{ID_USUARIO_REGISTRO},{EVENTO_ACTIVO}" +
+            ",{ELIMINACION},{CAUSA_ELIMINACION},{ID_USUARIO_ELIMINACION}")]
         public async Task<IActionResult> GetActualizarBitacora
            (string FECHA_HORA_INICIO, string FECHA_HORA_FIN, string ID_TIPO_REGISTRO, string DISPONIBILIDAD, string DESCRIPCION
            , int ID_EQUIPOS, int ID_USUARIO, int ID_UBICACION, string CAUSA_DESCONEXION, int ID_USUARIO_REGISTRO,
-           int EVENTO_ACTIVO,int ELEMENTO,string CAUSA_ELIMINACION,int ID_USUARIO_ELIMINACION)
+           int EVENTO_ACTIVO, int ELIMINACION, string CAUSA_ELIMINACION, int ID_USUARIO_ELIMINACION)
         {
             string StoredProc = "exec SP_ACTUALIZAR_BITACORA " +
             "@FECHA_HORA_INICIO='" + FECHA_HORA_INICIO + "'," +
@@ -143,7 +145,7 @@ namespace SanGaban_WebAPI.Controllers
             "@ID_UBICACION=" + ID_UBICACION + "'," +
             "@CAUSA_DESCONEXION='" + CAUSA_DESCONEXION + "'," +
             "@ID_USUARIO_REGISTRO=" + ID_USUARIO_REGISTRO + "," +
-            "@ELEMENTO=" + ELEMENTO + "," +
+            "@ELIMINACION=" + ELIMINACION + "," +
             "@CAUSA_ELIMINACION='" + CAUSA_ELIMINACION + "'," +
             "@ID_USUARIO_ELIMINACION=" + ID_USUARIO_ELIMINACION + "," +
             "@EVENTO_ACTIVO=" + EVENTO_ACTIVO;
@@ -151,17 +153,16 @@ namespace SanGaban_WebAPI.Controllers
 
             try
             {
-                var loginList = await _db.AuditoriaDto.FromSqlRaw(StoredProc).ToListAsync();
+                var loginList = await _db.BitacoraDto.FromSqlRaw(StoredProc).ToListAsync();
                 return Ok(loginList);
             }
             catch
             {
                 return Ok(1);
             }
-
+        
 
 
         }
-
     }
 }
