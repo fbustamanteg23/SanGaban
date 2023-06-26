@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SanGaban_Web", "SanGaban_Web\SanGaban_Web.csproj", "{09171EAE-2408-4643-B7AC-A32F861EEBD2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SanGaban_WebAPI", "..\SanGaban_WebAPI\SanGaban_WebAPI.csproj", "{D4A937D7-E60D-445E-AA81-09F781ECCC5E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{09171EAE-2408-4643-B7AC-A32F861EEBD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09171EAE-2408-4643-B7AC-A32F861EEBD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09171EAE-2408-4643-B7AC-A32F861EEBD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09171EAE-2408-4643-B7AC-A32F861EEBD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4A937D7-E60D-445E-AA81-09F781ECCC5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4A937D7-E60D-445E-AA81-09F781ECCC5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4A937D7-E60D-445E-AA81-09F781ECCC5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4A937D7-E60D-445E-AA81-09F781ECCC5E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6B7B1529-D5B0-4560-9697-343C8DA1DADA}
+	EndGlobalSection
+EndGlobal

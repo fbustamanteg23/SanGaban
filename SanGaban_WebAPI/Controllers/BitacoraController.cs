@@ -47,7 +47,7 @@ namespace SanGaban_WebAPI.Controllers
             "@ELIMINACION='" + ELIMINACION + "'";
             
 
-            var loginList = await _db.BitacoraDto.FromSqlRaw(StoredProc).ToListAsync();
+            var loginList = await _db.FiltroBitacoraDto.FromSqlRaw(StoredProc).ToListAsync();
             return Ok(loginList);
 
         }

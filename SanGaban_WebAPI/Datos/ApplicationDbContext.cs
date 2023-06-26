@@ -34,6 +34,8 @@ namespace SanGaban_WebAPI.Datos
         public DbSet<AuditoriaDto> AuditoriaDto { get; set; }
         public DbSet<BitacoraDto> BitacoraDto { get; set; }
 
+        public DbSet<FiltroBitacoraDto> FiltroBitacoraDto { get; set; }
+
         //CREA REGISTROS EN LA TABLA
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
